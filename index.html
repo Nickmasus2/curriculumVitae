@@ -3,352 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Vida | Nelson Medina</title>
+    <title>CV Interactivo | Nelson Medina Rubilar</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #050b14;
-            --line-color: #0ea5e9;
-            --card-bg: rgba(15, 23, 42, 0.7);
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.6);
+            --primary: #3b82f6;
+            --secondary: #06b6d4;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #38bdf8;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Fondo estrellado o tecnológico sutil */
-            background-image: radial-gradient(circle at center, #111827 0%, #050b14 100%);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
         }
 
-        /* Scrollbar tecnológico */
+        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050b14; }
-        ::-webkit-scrollbar-thumb { background: var(--line-color); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* Encabezado Principal / Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding: 20px;
+        /* Componentes de Cristal */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .glitch-title {
-            font-size: 4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Sección Hero (Encabezado) */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            background-color: #334155;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #f8fafc, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            font-size: 2rem;
-            color: var(--accent);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        /* ===== LÍNEA DE TIEMPO CENTRAL ===== */
-        .timeline-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            padding: 50px 20px;
-        }
-
-        /* La línea brillante del medio */
-        .timeline-container::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background: var(--line-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            box-shadow: 0 0 15px var(--line-color);
-            border-radius: 2px;
-        }
-
-        .timeline-node {
-            padding: 20px 0;
-            position: relative;
-            width: 50%;
-            perspective: 1000px;
-        }
-
-        /* Alternar izquierda y derecha */
-        .timeline-node:nth-child(odd) { left: 0; padding-right: 40px; }
-        .timeline-node:nth-child(even) { left: 50%; padding-left: 40px; }
-
-        /* El punto luminoso en la línea */
-        .timeline-node::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--bg-color);
-            border: 4px solid var(--accent);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 20px var(--accent);
-            z-index: 1;
-        }
-
-        .timeline-node:nth-child(odd)::after { right: -10px; }
-        .timeline-node:nth-child(even)::after { left: -10px; }
-
-        /* Tarjeta de Contenido (Glassmorphism) */
-        .node-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 30px;
-            border-radius: 15px;
-            position: relative;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .node-content:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.2);
-            border-color: var(--accent);
-        }
-
-        /* Fechas / Etapas */
-        .node-badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .node-title {
+        .hero h2 {
             font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin: 5px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-pill:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary);
             color: #ffffff;
         }
 
-        .node-desc {
+        /* Títulos de Sección */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        /* Timeline Profesional */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            border: 3px solid var(--bg-dark);
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .job-company {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .job-date {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .job-desc {
             font-size: 1rem;
             color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 0;
-        }
-
-        /* Iconos de las tarjetas */
-        .node-icon {
-            font-size: 2rem;
-            color: var(--accent);
             margin-bottom: 15px;
-            opacity: 0.8;
         }
 
-        /* Lista de detalles dentro de los nodos */
-        .node-details {
-            list-style: none;
-            padding: 0;
-            margin-top: 15px;
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        
-        .node-details li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: #cbd5e1;
+
+        .tech-badge {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
         }
-        
-        .node-details li::before {
-            content: '>';
+
+        /* Scroll Indicator */
+        .scroll-down {
             position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--text-muted);
+            font-size: 1.5rem;
         }
 
-        /* ===== RESPONSIVE (Móviles) ===== */
-        @media screen and (max-width: 768px) {
-            .timeline-container::after { left: 30px; }
-            .timeline-node { width: 100%; padding-left: 70px; padding-right: 0; }
-            .timeline-node:nth-child(even) { left: 0; }
-            .timeline-node:nth-child(odd)::after, 
-            .timeline-node:nth-child(even)::after { left: 20px; }
-            .glitch-title { font-size: 2.5rem; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-15px) translateX(-50%); }
+            60% { transform: translateY(-7px) translateX(-50%); }
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .timeline { padding-left: 20px; }
+            .timeline::before { left: 5px; }
+            .timeline-item::before { left: -21px; }
+            .job-company { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <h1 class="glitch-title" data-aos="zoom-in" data-aos-duration="1500">Nelson Medina</h1>
-        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
-            Un registro de vida. Desde la tierra, la fuerza y la disciplina operativa, hasta la creación de arquitecturas de software y control tecnológico. <br><strong>Chillán / Quirihue</strong>.
-        </p>
-        <i class="fas fa-chevron-down scroll-indicator" data-aos="fade-in" data-aos-delay="1500"></i>
+    <div class="container">
+        
+        <section class="hero flex-column text-center">
+            <div class="profile-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+                <img src="https://via.placeholder.com/180/1e293b/ffffff?text=FOTO" alt="Nelson Medina" class="profile-img">
+            </div>
+            <h1 data-aos="fade-up" data-aos-delay="200">Nelson Medina Rubilar</h1>
+            <h2 data-aos="fade-up" data-aos-delay="400">Ingeniero en Informática & Desarrollador Full-Stack</h2>
+            
+            <div class="d-flex flex-wrap justify-content-center mt-3" data-aos="fade-up" data-aos-delay="600">
+                <a href="mailto:nelson.medina.186@gmail.com" class="contact-pill"><i class="fas fa-envelope"></i> nelson.medina.186@gmail.com</a>
+                <span class="contact-pill"><i class="fas fa-phone"></i> +56 9 8835 4820</span>
+                <span class="contact-pill"><i class="fas fa-map-marker-alt"></i> Chillán / Quirihue, Ñuble</span>
+                <a href="https://github.com/Nickmasus2" target="_blank" class="contact-pill"><i class="fab fa-github"></i> github.com/Nickmasus2</a>
+            </div>
+
+            <div class="mt-5 max-w-75 mx-auto" data-aos="fade-up" data-aos-delay="800">
+                <p class="text-muted" style="font-size: 1.1rem; line-height: 1.6; max-width: 800px;">
+                    Profesional en Ciencias de la Computación con una <strong>ética de trabajo forjada en industrias de alta exigencia</strong>. Especializado en arquitecturas empresariales (Java/Spring Boot) y análisis de datos. Destaco por mi capacidad para resolver problemas críticos, liderar equipos de trabajo logístico e integrar flujos operativos eficientes, trasladando mi disciplina del terreno industrial al desarrollo de software de alto nivel.
+                </p>
+            </div>
+            
+            <i class="fas fa-chevron-down scroll-down"></i>
+        </section>
+
+        <section class="py-5">
+            <div class="glass-card" data-aos="fade-up">
+                <h3 class="fw-bold mb-4 text-center"><i class="fas fa-microchip text-primary me-2"></i> Stack Tecnológico & Especialidades</h3>
+                <div class="row g-4 text-center">
+                    <div class="col-md-4">
+                        <h5 class="text-info mb-3">Backend & Arquitectura</h5>
+                        <div class="tech-stack justify-content-center">
+                            <span class="tech-badge">Java</span> <span class="tech-badge">Python</span> <span class="tech-badge">PHP</span>
+                            <span class="tech-badge">Spring Boot</span> <span class="tech-badge">Spring Security</span>
+                            <span class="tech-badge">Patrón MVC</span> <span class="tech-badge">Modelo C4</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-info mb-3">Bases de Datos & Análisis</h5>
+                        <div class="tech-stack justify-content-center">
+                            <span class="tech-badge">PostgreSQL</span> <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">MongoDB</span> <span class="tech-badge">SQLite</span>
+                            <span class="tech-badge">Pandas</span> <span class="tech-badge">Matplotlib</span> <span class="tech-badge">BI / KPIs</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-info mb-3">Infraestructura & Hardware</h5>
+                        <div class="tech-stack justify-content-center">
+                            <span class="tech-badge">VMs & Redes Virtuales</span> <span class="tech-badge">Montaje de SO</span>
+                            <span class="tech-badge">Mantenimiento (HP/Lenovo)</span> <span class="tech-badge">Git/GitHub</span>
+                            <span class="tech-badge">Tecnología RFID</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <h2 class="section-title" data-aos="fade-right"><i class="fas fa-code"></i> Experiencia en Desarrollo & TI</h2>
+            
+            <div class="timeline">
+                
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card">
+                        <h3 class="job-title">Desarrollador Full-Stack & Arquitecto de Software</h3>
+                        <div class="job-company">
+                            <span>Sistemas Institucionales (UCSC)</span>
+                            <span class="job-date">Proyecto Académico/Institucional</span>
+                        </div>
+                        <p class="job-desc">
+                            Desarrollo de plataforma empresarial estructurada en MVC. Implementación de control de accesos basados en roles, flujos automáticos de notificaciones y procesamiento masivo de datos (Apache POI). <strong>Diseño de módulo analítico</strong> para cálculo de Retorno de Inversión (ROI), Costo por Lead (CPL) y mapas de calor. Coordinación paralela de inventarios físicos de la sede.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Java</span> <span class="tech-badge">Spring Boot</span> <span class="tech-badge">PostgreSQL</span> <span class="tech-badge">Spring Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card">
+                        <h3 class="job-title">Integrador de Hardware/Software & Desarrollador Web</h3>
+                        <div class="job-company">
+                            <span>Cesia ONG & Gimnasio Local</span>
+                            <span class="job-date">Freelance / Proyectos Propios</span>
+                        </div>
+                        <ul class="job-desc ps-3 mb-3">
+                            <li class="mb-2"><strong>Sistema RFID (Gimnasio):</strong> Programación e integración local con lectoras RFID para control físico de accesos. Gestión financiera de morosidad y métricas de Business Intelligence sobre afluencia horaria.</li>
+                            <li><strong>Plataforma Autogestionable (Cesia ONG):</strong> Desarrollo web responsivo con panel de administración para eventos multimedia y lógica base para pasarelas de donación.</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Python</span> <span class="tech-badge">PHP</span> <span class="tech-badge">Bootstrap</span> <span class="tech-badge">SQLite</span> <span class="tech-badge">Hardware RFID</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card">
+                        <h3 class="job-title">Creador de Software de Gestión & Contabilidad</h3>
+                        <div class="job-company">
+                            <span>Banco de Bolsillo & KakoHouse V7.7</span>
+                            <span class="job-date">Desarrollo Independiente</span>
+                        </div>
+                        <p class="job-desc">
+                            Creación de ecosistemas de escritorio y herramientas multiplataforma (Flet) para la administración logística de inventarios comerciales y capital privado. Trazabilidad financiera de ingresos, egresos y requerimientos de reinversión con comparativas automatizadas. Adicionalmente, ejerzo como moderador digital autorizado y creador audiovisual.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Python</span> <span class="tech-badge">Flet</span> <span class="tech-badge">Diseño Digital (Stickers 1:1)</span> <span class="tech-badge">Edición Audiovisual</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-5">
+            <h2 class="section-title" data-aos="fade-right"><i class="fas fa-industry"></i> Experiencia Operativa e Industrial</h2>
+            
+            <div class="timeline">
+                
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card" style="border-left: 4px solid var(--secondary);">
+                        <h3 class="job-title">Operario de Frigorífico y Procesado</h3>
+                        <div class="job-company">
+                            <span>Sector Frutícola</span>
+                            <span class="job-date">Temporada Industrial</span>
+                        </div>
+                        <p class="job-desc">
+                            Desempeño en el área de empaquetado y procesamiento de frutas bajo ambientes de temperatura controlada. Tolerancia comprobada a condiciones climáticas adversas, manteniendo altos estándares de velocidad, higiene y control de calidad en línea de producción para cumplir con los tiempos de exportación del sector.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card" style="border-left: 4px solid var(--secondary);">
+                        <h3 class="job-title">Operario Integral y Control de Procesos</h3>
+                        <div class="job-company">
+                            <span>Concon Maderas (Quirihue)</span>
+                            <span class="job-date">Dic 2021 – Mar 2023</span>
+                        </div>
+                        <p class="job-desc">
+                            Responsable de la verificación de ingreso de materias primas, control de ventas y gestión de accesos a la planta. Operación directa en procesos de impregnado, secado en calderas, y maquinaria de corte industrial. Ejecución de mantenimiento preventivo a cuchillas, amoladoras y equipos de pulido.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card" style="border-left: 4px solid var(--secondary);">
+                        <h3 class="job-title">Atención al Cliente y Protocolo de Alta Exigencia</h3>
+                        <div class="job-company">
+                            <span>MDS Casino Chillán & Eventos Privados</span>
+                            <span class="job-date">Servicio y Hotelería</span>
+                        </div>
+                        <p class="job-desc">
+                            Servicio de garzón y protocolo en bodas, fiestas y eventos corporativos masivos. Demostrada capacidad para trabajar bajo presión extrema, manejando simultáneamente múltiples requerimientos de usuarios exigentes y manteniendo la resolución de problemas con un trato cordial.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="glass-card" style="border-left: 4px solid var(--secondary);">
+                        <h3 class="job-title">Trabajos Formativos y Resiliencia Física</h3>
+                        <div class="job-company">
+                            <span>Terreno, Agricultura y Producción Industrial</span>
+                            <span class="job-date">Múltiples Periodos</span>
+                        </div>
+                        <ul class="job-desc ps-3 mb-0">
+                            <li class="mb-1"><strong>Construcción de Pozos Profundos:</strong> Excavación manual a pala y picota alcanzando los 12 metros de profundidad, demostrando resistencia física extrema.</li>
+                            <li class="mb-1"><strong>Maquinaria Agrícola:</strong> Operación y mantenimiento de cosechadoras y maquinaria pesada en terreno.</li>
+                            <li><strong>Producción Gastronómica:</strong> Elaboración industrial de masas, panadería y canapés, exigiendo precisión y ritmo bajo estrés calórico.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-5 mb-5">
+            <h2 class="section-title" data-aos="fade-right"><i class="fas fa-graduation-cap"></i> Educación y Reconocimientos</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="glass-card h-100">
+                        <h3 class="job-title" style="font-size: 1.2rem;">Formación Universitaria</h3>
+                        <p class="text-info fw-bold mb-2">Universidad Católica de la Santísima Concepción (UCSC)</p>
+                        <ul class="job-desc ps-3 mt-3">
+                            <li class="mb-2"><strong>Ingeniería en Ejecución de Informática</strong><br><span class="text-muted">Cursando actualmente (Sede Chillán).</span></li>
+                            <li><strong>Técnico Universitario en Informática</strong><br><span class="text-success"><i class="fas fa-check-circle"></i> Titulado.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="glass-card h-100">
+                        <h3 class="job-title" style="font-size: 1.2rem;">Educación Media & Becas</h3>
+                        <p class="text-info fw-bold mb-2">Liceo Bicentenario Carlos Montané Castro</p>
+                        <ul class="job-desc ps-3 mt-3">
+                            <li class="mb-2">Rendimiento académico de excelencia (Promedio General 6.85).</li>
+                            <li><strong>Beca Presidente de la República:</strong><br><span class="text-muted">Asignada y mantenida ininterrumpidamente desde 1° Medio.</span></li>
+                            <li><strong>Situación Militar:</strong> Al día.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="timeline-container">
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-right" data-aos-offset="200">
-                <i class="fas fa-seedling node-icon"></i>
-                <div class="node-badge">Los Primeros Años</div>
-                <h3 class="node-title">Educación Básica y Desarrollo</h3>
-                <p class="node-desc">Los cimientos de la disciplina comenzaron temprano.</p>
-                <ul class="node-details">
-                    <li><strong>Escuela de Lenguaje:</strong> Primeros pasos educativos.</li>
-                    <li><strong>Colegio Calera de Tango:</strong> Formación inicial hasta 4° Básico.</li>
-                    <li><strong>Escuela Virgen del Carmen:</strong> Continuación de la enseñanza básica a partir de 5° Básico.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-left" data-aos-offset="200">
-                <i class="fas fa-medal node-icon"></i>
-                <div class="node-badge">Adolescencia (2019 - 2022)</div>
-                <h3 class="node-title">Liceo Bicentenario & Excelencia</h3>
-                <p class="node-desc">Educación Media en el <strong>Liceo Bicentenario de Excelencia Carlos Montané Castro</strong>.</p>
-                <ul class="node-details">
-                    <li>Rendimiento sobresaliente constante con un promedio general de <strong>6.85</strong>.</li>
-                    <li>Asignación y retención de la <strong>Beca Presidente de la República</strong> desde 1° Medio.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-right" data-aos-offset="200">
-                <i class="fas fa-hammer node-icon"></i>
-                <div class="node-badge">Forjando el Carácter</div>
-                <h3 class="node-title">Tierra, Cosecha y Fuego</h3>
-                <p class="node-desc">Antes del código, aprendí el valor del esfuerzo físico extremo y la disciplina operativa.</p>
-                <ul class="node-details">
-                    <li><strong>Pozos Profundos:</strong> Excavación y restauración a pala y picota hasta 12 metros de profundidad.</li>
-                    <li><strong>Maquinaria Agrícola:</strong> Operación y mantenimiento de cosechadoras y maquinaria pesada en terreno.</li>
-                    <li><strong>Panadería Industrial:</strong> Elaboración de masas (marraquetas, baguettes, canapés) exigiendo ritmo, precisión y control bajo calor.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-left" data-aos-offset="200">
-                <i class="fas fa-industry node-icon"></i>
-                <div class="node-badge">Sector Industrial & Servicios</div>
-                <h3 class="node-title">Maderera Concon & MDS Casino</h3>
-                <p class="node-desc">La transición hacia la responsabilidad corporativa, el control de procesos y la presión social.</p>
-                <ul class="node-details">
-                    <li><strong>Operario Integral (Maderera):</strong> Control de ingresos de materia bruta, impregnado, secado en calderas, mantenimiento de maquinaria de corte y pulido. Gestión de ventas y control de acceso a planta.</li>
-                    <li><strong>Atención y Protocolo (Casino/Eventos):</strong> Servicio como garzón en bodas y eventos masivos privados, manejando el estrés extremo y la atención impecable al cliente.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-right" data-aos-offset="200">
-                <i class="fas fa-graduation-cap node-icon"></i>
-                <div class="node-badge">Educación Superior (2023 - Act.)</div>
-                <h3 class="node-title">La Era Tecnológica: UCSC</h3>
-                <p class="node-desc">Formación académica profesional en la <strong>Universidad Católica de la Santísima Concepción</strong> (Sede Chillán).</p>
-                <ul class="node-details">
-                    <li><strong>Titulado:</strong> Técnico Universitario Analista de Sistemas y Programador de Computadores.</li>
-                    <li><strong>En curso:</strong> Ingeniería de Ejecución en Informática.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-left" data-aos-offset="200">
-                <i class="fas fa-code-branch node-icon"></i>
-                <div class="node-badge">Desarrollo Temprano & Web</div>
-                <h3 class="node-title">Freelance, ONG y Herramientas</h3>
-                <p class="node-desc">Aplicando la lógica para construir soluciones digitales desde cero.</p>
-                <ul class="node-details">
-                    <li><strong>Banco de Bolsillo & Kako House:</strong> Aplicaciones financieras y logísticas en Python (Flet).</li>
-                    <li><strong>Cesia ONG:</strong> Desarrollo Full-Stack (PHP, PostgreSQL) de plataforma autogestionable y panel administrativo.</li>
-                    <li><strong>Moderación de Comunidades:</strong> Control de crisis, creación audiovisual y diseño de assets digitales (1:1).</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="timeline-node">
-            <div class="node-content" data-aos="fade-right" data-aos-offset="200" data-aos-anchor-placement="top-bottom">
-                <i class="fas fa-server node-icon"></i>
-                <div class="node-badge">Nivel Corporativo</div>
-                <h3 class="node-title">Arquitecturas y Hardware Institucional</h3>
-                <p class="node-desc">La convergencia de mis habilidades en sistemas complejos, seguros e integrados.</p>
-                <ul class="node-details">
-                    <li><strong>Plataforma Institucional UCSC:</strong> Desarrollo de un sistema de gestión empresarial en <strong>Java y Spring Boot</strong>. Seguridad por roles, métricas de inteligencia de negocios (ROI, CPL) y mapas de calor.</li>
-                    <li><strong>Control de Acceso RFID (Gimnasio/UCAM):</strong> Integración de hardware y software (Python/SQLite) para control físico de usuarios, morosidad y tiempos de uso.</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="text-center py-5" data-aos="fade-up">
-        <p style="color: var(--text-muted); font-size: 0.9rem;">
-            Un registro en constante evolución. Preparado para el siguiente nivel. <br>
-            <i class="fas fa-terminal mt-3" style="color: var(--accent); font-size: 1.5rem;"></i>
-        </p>
-    </div>
+    <footer class="text-center py-4" style="background: rgba(15, 23, 42, 0.8); border-top: 1px solid rgba(255,255,255,0.05);">
+        <p class="text-muted mb-0" style="font-size: 0.9rem;">Nelson Medina Rubilar &copy; 2026 | Desarrollador de Software y Operaciones Integrales</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Inicializar las animaciones al hacer scroll
-        AOS.init({
-            duration: 1000,      // Animaciones suaves y prolongadas
-            easing: 'ease-out-back',
-            once: false,         // Permite que las animaciones se repitan al subir y bajar
-            mirror: true,
-            offset: 120          // Retardo antes de que se active el nodo
-        });
-    </script>
-</body>
-</html>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos
