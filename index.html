@@ -2,17 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- A tag viewport é crucial para a responsividade em celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Interactivo | Nelson Medina Rubilar</title>
     
+    <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
+        /* Variáveis de cores e estilos base */
         :root {
             --bg-dark: #0f172a;
             --bg-card: rgba(30, 41, 59, 0.6);
@@ -33,12 +38,12 @@
             background-attachment: fixed;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Barra de rolagem estilizada */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* Componentes de Cristal */
+        /* Cartões com efeito Glassmorphism */
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -55,7 +60,7 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        /* Sección Hero (Encabezado) */
+        /* Seção Hero (Topo) */
         .hero {
             min-height: 90vh;
             display: flex;
@@ -100,6 +105,7 @@
             margin-bottom: 25px;
         }
 
+        /* Botões de contato */
         .contact-pill {
             display: inline-flex;
             align-items: center;
@@ -121,7 +127,7 @@
             color: #ffffff;
         }
 
-        /* Títulos de Sección */
+        /* Títulos das seções */
         .section-title {
             font-size: 2rem;
             font-weight: 800;
@@ -138,7 +144,7 @@
             border-radius: 12px;
         }
 
-        /* Timeline Profesional */
+        /* Linha do tempo profissional */
         .timeline {
             position: relative;
             padding-left: 40px;
@@ -222,7 +228,7 @@
             border: 1px solid rgba(6, 182, 212, 0.2);
         }
 
-        /* Scroll Indicator */
+        /* Indicador de rolagem */
         .scroll-down {
             position: absolute;
             bottom: 30px;
@@ -239,22 +245,86 @@
             60% { transform: translateY(-7px) translateX(-50%); }
         }
 
-        /* Responsividad */
+        /* ==================================================== */
+        /* MEDIA QUERIES PARA RESPONSIVIDADE EM DISPOSITIVOS MÓVEIS */
+        /* ==================================================== */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .timeline { padding-left: 20px; }
-            .timeline::before { left: 5px; }
-            .timeline-item::before { left: -21px; }
-            .job-company { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .glass-card {
+                padding: 20px; /* Reduz o padding em celulares */
+            }
+
+            .hero h1 { 
+                font-size: 2.2rem; /* Fonte menor para o nome */
+            }
+
+            .hero h2 {
+                font-size: 1.1rem;
+            }
+
+            .profile-wrapper {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 20px;
+            }
+
+            .contact-pill {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+
+            .section-title i {
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+
+            /* Ajustes finos na linha do tempo para dispositivos móveis */
+            .timeline { 
+                padding-left: 20px; 
+            }
+            .timeline::before { 
+                left: 0px; 
+            }
+            .timeline-item::before { 
+                left: -26px; /* Alinhamento do ponto com a nova posição da linha */
+                width: 12px;
+                height: 12px;
+            }
+
+            .job-title {
+                font-size: 1.2rem;
+            }
+
+            .job-company { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 5px; 
+            }
+
+            .job-date {
+                margin-top: 5px;
+                font-size: 0.8rem;
+            }
+
+            .job-desc {
+                font-size: 0.95rem;
+                text-align: left; /* Melhora a leitura em telas pequenas */
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container px-3 px-md-4">
         
+        <!-- SEÇÃO HERO (Cabeçalho) -->
         <section class="hero flex-column text-center">
             <div class="profile-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+                <!-- Certifique-se de substituir pela sua foto no GitHub -->
                 <img src="https://via.placeholder.com/180/1e293b/ffffff?text=FOTO" alt="Nelson Medina" class="profile-img">
             </div>
             <h1 data-aos="fade-up" data-aos-delay="200">Nelson Medina Rubilar</h1>
@@ -267,8 +337,8 @@
                 <a href="https://github.com/Nickmasus2" target="_blank" class="contact-pill"><i class="fab fa-github"></i> github.com/Nickmasus2</a>
             </div>
 
-            <div class="mt-5 max-w-75 mx-auto" data-aos="fade-up" data-aos-delay="800">
-                <p class="text-muted" style="font-size: 1.1rem; line-height: 1.6; max-width: 800px;">
+            <div class="mt-4 mt-md-5 mx-auto" style="max-width: 800px;" data-aos="fade-up" data-aos-delay="800">
+                <p class="text-muted" style="font-size: 1.05rem; line-height: 1.6;">
                     Profesional en Ciencias de la Computación con una <strong>ética de trabajo forjada en industrias de alta exigencia</strong>. Especializado en arquitecturas empresariales (Java/Spring Boot) y análisis de datos. Destaco por mi capacidad para resolver problemas críticos, liderar equipos de trabajo logístico e integrar flujos operativos eficientes, trasladando mi disciplina del terreno industrial al desarrollo de software de alto nivel.
                 </p>
             </div>
@@ -276,12 +346,13 @@
             <i class="fas fa-chevron-down scroll-down"></i>
         </section>
 
-        <section class="py-5">
+        <!-- SEÇÃO DE HABILIDADES -->
+        <section class="py-4 py-md-5">
             <div class="glass-card" data-aos="fade-up">
-                <h3 class="fw-bold mb-4 text-center"><i class="fas fa-microchip text-primary me-2"></i> Stack Tecnológico & Especialidades</h3>
+                <h3 class="fw-bold mb-4 text-center fs-4"><i class="fas fa-microchip text-primary me-2"></i> Stack Tecnológico & Especialidades</h3>
                 <div class="row g-4 text-center">
                     <div class="col-md-4">
-                        <h5 class="text-info mb-3">Backend & Arquitectura</h5>
+                        <h5 class="text-info mb-3 fs-6">Backend & Arquitectura</h5>
                         <div class="tech-stack justify-content-center">
                             <span class="tech-badge">Java</span> <span class="tech-badge">Python</span> <span class="tech-badge">PHP</span>
                             <span class="tech-badge">Spring Boot</span> <span class="tech-badge">Spring Security</span>
@@ -289,7 +360,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <h5 class="text-info mb-3">Bases de Datos & Análisis</h5>
+                        <h5 class="text-info mb-3 fs-6">Bases de Datos & Análisis</h5>
                         <div class="tech-stack justify-content-center">
                             <span class="tech-badge">PostgreSQL</span> <span class="tech-badge">SQL Server</span>
                             <span class="tech-badge">MongoDB</span> <span class="tech-badge">SQLite</span>
@@ -297,7 +368,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <h5 class="text-info mb-3">Infraestructura & Hardware</h5>
+                        <h5 class="text-info mb-3 fs-6">Infraestructura & Hardware</h5>
                         <div class="tech-stack justify-content-center">
                             <span class="tech-badge">VMs & Redes Virtuales</span> <span class="tech-badge">Montaje de SO</span>
                             <span class="tech-badge">Mantenimiento (HP/Lenovo)</span> <span class="tech-badge">Git/GitHub</span>
@@ -308,7 +379,8 @@
             </div>
         </section>
 
-        <section class="py-5">
+        <!-- EXPERIÊNCIA EM TI -->
+        <section class="py-4 py-md-5">
             <h2 class="section-title" data-aos="fade-right"><i class="fas fa-code"></i> Experiencia en Desarrollo & TI</h2>
             
             <div class="timeline">
@@ -357,7 +429,7 @@
                             Creación de ecosistemas de escritorio y herramientas multiplataforma (Flet) para la administración logística de inventarios comerciales y capital privado. Trazabilidad financiera de ingresos, egresos y requerimientos de reinversión con comparativas automatizadas. Adicionalmente, ejerzo como moderador digital autorizado y creador audiovisual.
                         </p>
                         <div class="tech-stack">
-                            <span class="tech-badge">Python</span> <span class="tech-badge">Flet</span> <span class="tech-badge">Diseño Digital (Stickers 1:1)</span> <span class="tech-badge">Edición Audiovisual</span>
+                            <span class="tech-badge">Python</span> <span class="tech-badge">Flet</span> <span class="tech-badge">Diseño Digital (Stickers)</span> <span class="tech-badge">Edición Audiovisual</span>
                         </div>
                     </div>
                 </div>
@@ -365,7 +437,8 @@
             </div>
         </section>
 
-        <section class="py-5">
+        <!-- EXPERIÊNCIA OPERACIONAL E INDUSTRIAL -->
+        <section class="py-4 py-md-5">
             <h2 class="section-title" data-aos="fade-right"><i class="fas fa-industry"></i> Experiencia Operativa e Industrial</h2>
             
             <div class="timeline">
@@ -427,7 +500,8 @@
             </div>
         </section>
 
-        <section class="py-5 mb-5">
+        <!-- EDUCAÇÃO E CONQUISTAS -->
+        <section class="py-4 py-md-5 mb-5">
             <h2 class="section-title" data-aos="fade-right"><i class="fas fa-graduation-cap"></i> Educación y Reconocimientos</h2>
             
             <div class="row g-4">
@@ -458,9 +532,23 @@
 
     </div>
 
+    <!-- Rodapé -->
     <footer class="text-center py-4" style="background: rgba(15, 23, 42, 0.8); border-top: 1px solid rgba(255,255,255,0.05);">
-        <p class="text-muted mb-0" style="font-size: 0.9rem;">Nelson Medina Rubilar &copy; 2026 | Desarrollador de Software y Operaciones Integrales</p>
+        <p class="text-muted mb-0" style="font-size: 0.85rem;">Nelson Medina Rubilar &copy; 2026 | Desarrollador de Software y Operaciones Integrales</p>
     </footer>
 
+    <!-- Scripts do Bootstrap e Animações AOS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializa as animações de scroll
+        AOS.init({
+            duration: 800,      // Duração ligeiramente reduzida para melhor fluidez no mobile
+            easing: 'ease-out-cubic',
+            once: false,        // Permite re-animar ao rolar para cima/baixo
+            mirror: true,
+            offset: 50          // Reduzido para ativar mais rápido em telas pequenas
+        });
+    </script>
+</body>
+</html>
